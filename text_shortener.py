@@ -8,7 +8,7 @@ import numpy as np
 import spacy
 from sklearn.decomposition import TruncatedSVD
 
-def shorten_text(text, chunk_size, method):
+def shorten_text(text, chunk_size, method, summarizer = None):
     """
     Shortens the text using the specified method.
     :param text: The original text to shorten.
@@ -56,7 +56,7 @@ def tfidf_sentence_ranking(text, chunk_size):
     selected_sentences = [s for _, _, s in ranked_sentences[:int(chunk_size / 20)]]
     return '. '.join(selected_sentences)
 
-def sliding_window(text, chunk_size, overlap=100):
+def sliding_window(text, chunk_size, overlap=100, summarizer = None):
     words = text.split()
     windows = []
     for i in range(0, len(words), chunk_size - overlap):
@@ -78,7 +78,7 @@ def entity_filtering(text, chunk_size):
     return " ".join(important_sentences)
 
 
-def summarize_summary(text, chunk_size, min_length=200):
+def summarize_summary(text, chunk_size, min_length=200, summarizer = None):
     """
     Recursively summarize the text until it is under a desired length.
     """
