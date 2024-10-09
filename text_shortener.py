@@ -20,7 +20,7 @@ def shorten_text(text, chunk_size, method, summarizer = None):
         return text[:chunk_size]
 
     elif method == "iterative":
-        chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+        chunks = [' '.join(text.split()[i:i+chunk_size]) for i in range(0, len(text.split()), chunk_size)]
         summarized_chunks = [summarizer(chunk, min_length=50, max_length=100, do_sample=False)[0]['summary_text'] for chunk in chunks]
         return " ".join(summarized_chunks)
 
